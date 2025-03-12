@@ -1,19 +1,45 @@
-from collections import Counter
-def get_book_text(filepath):
-    """Reads the contents of a file and returns it as a string."""
-    with open(filepath, 'r', encoding='utf-8') as f:
-        return f.read()
 def get_num_words(text):
-    """Returns a list of words in a text."""
-    return text.split()
-def hashmap(text):
-    letters = [char.lower() for char in text]
-    # Use Counter to count occurrences
-    letter_counts = Counter(letters)
-    
-    return letter_counts
-def sorted_hashmap(text):
-    letter_counts = hashmap(text)
-    # Filter out non-alphabet characters and sort the dictionary by key
-    sorted_counts = {k: v for k, v in sorted(letter_counts.items(), key=lambda item: item[1], reverse=True) if k.isalpha()}
-    return sorted_counts
+    words = text.split()
+    return len(words)
+
+
+def get_num_words(text):
+    words = text.split()
+    return len(words)
+
+
+def get_chars_dict(text):
+    chars = {}
+    for c in text:
+        lowered = c.lower()
+        if lowered.isalpha():  # Make sure this line is present
+            if lowered in chars:
+                chars[lowered] += 1
+            else:
+                chars[lowered] = 1
+    return chars
+
+
+def sort_on(d):
+    return d["num"]
+
+
+def chars_dict_to_sorted_list(num_chars_dict):
+    sorted_list = []
+    for ch in num_chars_dict:
+        sorted_list.append({"char": ch, "num": num_chars_dict[ch]})
+    sorted_list.sort(reverse=True, key=sort_on)
+    return sorted_list
+
+
+
+def sort_on(d):
+    return d["num"]
+
+
+def chars_dict_to_sorted_list(num_chars_dict):
+    sorted_list = []
+    for ch in num_chars_dict:
+        sorted_list.append({"char": ch, "num": num_chars_dict[ch]})
+    sorted_list.sort(reverse=True, key=sort_on)
+    return sorted_list
